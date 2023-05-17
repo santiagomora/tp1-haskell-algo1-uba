@@ -3,6 +3,8 @@ module TestEquipo where
 import Test.HUnit
 import Solucion
 
+testsEquipo = test [ej1 , ej2, ej3, ej4, ej5, ej6, ej7, ej8, ej9, ej10]
+
 ej1 = test [
     " Caso 1: No tiene usuarios" ~: (nombresDeUsuarios redV) ~?= [],
     " Caso 2: Tiene usuarios" ~: (nombresDeUsuarios redA) ~?= ["Juan","Natalia","Pedro","Mariela"]
