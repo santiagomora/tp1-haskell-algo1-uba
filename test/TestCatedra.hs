@@ -1,11 +1,10 @@
 module TestCatedra where
 
 import Test.HUnit
-import "../app/Solucion"
 
-main = runTestTT tests
+import Solucion
 
-tests = test [
+testsCatedra = test [
     " nombresDeUsuarios 1" ~: (nombresDeUsuarios redA) ~?= ["Juan","Natalia","Pedro","Mariela"],
 
     " amigosDe 1" ~: (amigosDe redA usuario1) ~?= [usuario2, usuario4],

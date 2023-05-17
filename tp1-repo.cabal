@@ -25,21 +25,22 @@ extra-source-files:
 
 executable tp1-repo
     main-is:          Main.hs
-
     -- Modules included in this executable, other than Main.
-    -- other-modules:
+    other-modules:    AuxiliaresCatedra,
+                      Solucion
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
-    build-depends:
-        base ^>=4.17.0.0,
-        HUnit ==1.6.2.0
+    build-depends:    base ^>=4.17.0.0, HUnit ==1.6.2.0
     hs-source-dirs:   app
     default-language: Haskell2010
 
-Test-Suite test-catedra
-    type:       exitcode-stdio-1.0
-    main-is:    tests/TestCatedra.hs
-    build-depends:
-        base,
-        HUnit
+Test-Suite test
+    type:               exitcode-stdio-1.0
+    main-is:            Main.hs
+    hs-source-dirs:     test app
+    other-modules:      AuxiliaresCatedra,
+                        Solucion,
+                        TestCatedra,
+                        TestEquipo
+    build-depends:      base, HUnit

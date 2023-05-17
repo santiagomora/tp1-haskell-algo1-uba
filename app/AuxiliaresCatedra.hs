@@ -1,3 +1,4 @@
+module AuxiliaresCatedra where
 
 type Usuario = (Integer, String) -- (id, nombre)
 type Relacion = (Usuario, Usuario) -- usuarios que se relacionan

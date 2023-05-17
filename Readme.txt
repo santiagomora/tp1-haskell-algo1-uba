@@ -10,3 +10,6 @@ Contenido entregado por la cátedra para el TP
 
 - solucion en app
 
+- para correr solucion: cabal run tp1-repo
+
+- para correr pruebas: cabal run test
