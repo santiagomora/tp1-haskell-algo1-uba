@@ -8,5 +8,5 @@ main :: IO ()
 main = do
 	putStrLn "Corriendo pruebas"
 	runTestTT testsCatedra
-	runTestTT testsEquipo
+-- 	runTestTT testsEquipo
 	putStrLn "Pruebas finalizadas"

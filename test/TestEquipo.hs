@@ -3,10 +3,139 @@ module TestEquipo where
 import Test.HUnit
 import Solucion
 
-testsEquipo = test [
-    " nombresDeUsuarios 1" ~: "test" ~?= "test"
+ej1 = test [
+    " Caso 1: No tiene usuarios" ~: (nombresDeUsuarios redV) ~?= [],
+    " Caso 2: Tiene usuarios" ~: (nombresDeUsuarios redA) ~?= ["Juan","Natalia","Pedro","Mariela"]
  ]
-expectAny actual expected = elem actual expected ~? ("expected any of: " ++ show expected ++ "\n but got: " ++ show actual)
+
+ej2 = test [
+    " Caso 1: La red no tiene relaciones" ~: (amigosDe redC usuario1) ~?= [],
+    " Caso 2: El usuario tiene relaciones en la red" ~: (amigosDe redA usuario1) ~?= [usuario2, usuario4],
+    " Caso 3: El usuario no tiene relaciones en la red" ~: (amigosDe redB usuario5) ~?= []
+ ]
+
+ej3 = test [
+    " Caso 1: La red no tiene relaciones" ~: (cantidadDeAmigos redC usuario1) ~?= 0,
+    " Caso 2: El usuario tiene relaciones en la red" ~: (cantidadDeAmigos redA usuario1) ~?= 2,
+    " Caso 3: El usuario no tiene relaciones en la red" ~: (cantidadDeAmigos redB usuario5) ~?= 0
+ ]
+
+ej4 = test [
+    " Caso 1: No hay relaciones en la red" ~: (usuarioConMasAmigos redC) ~?= usuario1,
+    " Caso 2: Hay relaciones en la red" ~: (usuarioConMasAmigos redA) ~?= usuario2
+ ]
+
+ej5 = test [
+    " Caso 1: La red no tiene usuarios" ~: (estaRobertoCarlos redV) ~?= False,
+    " Caso 2: En la red hay usuarios pero no relaciones" ~: (estaRobertoCarlos redC) ~?= False,
+    " Caso 3: Hay usuarios y relaciones sin Roberto Carlos" ~: (estaRobertoCarlos redA) ~?= False,
+    " Caso 4: Un usuario tiene mas de 10 relaciones" ~: (estaRobertoCarlos redD) ~?= True
+ ]
+
+ej6 = test [
+    " Caso 1: Red sin publicaciones" ~: (publicacionesDe redC usuario1) ~?= [],
+    " Caso 2: Red con publicaciones, usuario sin publicaciones" ~: (publicacionesDe redB usuario5) ~?= [],
+    " Caso 3: Red y usuario con publicaciones" ~: (publicacionesDe redA usuario2) ~?= [publicacion2_1, publicacion2_2]
+ ]
+
+ej7 = test [
+    " Caso 1: Red sin publicaciones" ~: (publicacionesQueLeGustanA redC usuario1) ~?= [],
+    " Caso 2: Al usuario no le gusta ninguna de las publicaciones" ~: (publicacionesQueLeGustanA redA usuario3) ~?= [],
+    " Caso 3: Al usuario le gusta alguna de las publicaciones" ~: (publicacionesQueLeGustanA redA usuario1) ~?= [publicacion2_2, publicacion4_1]
+ ]
+
+ej8 = test [
+    " Caso 1: La red no tiene publicaciones" ~: (lesGustanLasMismasPublicaciones redC usuario1 usuario2) ~?= True,
+    " Caso 2: No les gusta ninguna de las publicaciones" ~: (lesGustanLasMismasPublicaciones redE usuario1 usuario3) ~?= True,
+    " Caso 3: No les gustan las mismas publicaciones" ~: (lesGustanLasMismasPublicaciones redA usuario1 usuario2) ~?= False,
+    " Caso 4: Les gustan las mismas publicaciones" ~: (lesGustanLasMismasPublicaciones redB usuario1 usuario3) ~?= True
+ ]
+
+ej9 = test [
+    " Caso 1: La red no tiene publicaciones" ~: (tieneUnSeguidorFiel redC usuario2) ~?= False,
+    " Caso 2: El usuario no tiene publicaciones con me gusta" ~: (tieneUnSeguidorFiel redE usuario1) ~?= False,
+    " Caso 3: Tiene seguidores, pero no fieles" ~: (tieneUnSeguidorFiel redA usuario3) ~?= False,
+    " Caso 4: Tiene seguidor fiel" ~: (tieneUnSeguidorFiel redA usuario2) ~?= True
+ ]
+
+ej10 = test [
+    " Caso 1: La red no tiene relaciones" ~: (existeSecuenciaDeAmigos redC usuario1 usuario2) ~?= False,
+    " Caso 2: Los usuarios son amigos" ~: (existeSecuenciaDeAmigos redE usuario1 usuario3) ~?= True,
+    " Caso 3: No son amigos ni tienen amigos en comun" ~: (existeSecuenciaDeAmigos redB usuario1 usuario5) ~?= False,
+    " Caso 4: No son amigos pero tienen amigos en comun" ~: (existeSecuenciaDeAmigos redB usuario1 usuario3) ~?= True
+ ]
+
+usuario1 = (1, "Juan")
+usuario2 = (2, "Natalia")
+usuario3 = (3, "Pedro")
+usuario4 = (4, "Mariela")
+usuario5 = (5, "Natalia")
+usuario6 = (6, "Nicolas")
+usuario7 = (7, "Anabella")
+usuario8 = (8, "Daniel")
+usuario9 = (9, "Soledad")
+usuario10 = (10, "Rosario")
+usuario11 = (11, "Pablo")
+usuario12 = (12, "Estefania")
+
+relacion1_2 = (usuario1, usuario2)
+relacion1_3 = (usuario1, usuario3)
+relacion1_4 = (usuario4, usuario1)
+relacion2_3 = (usuario3, usuario2)
+relacion2_4 = (usuario2, usuario4)
+relacion3_4 = (usuario4, usuario3)
+relacion1_5 = (usuario1, usuario5)
+relacion1_6 = (usuario1, usuario6)
+relacion1_7 = (usuario1, usuario7)
+relacion1_8 = (usuario1, usuario8)
+relacion1_9 = (usuario1, usuario9)
+relacion1_10 = (usuario1, usuario10)
+relacion1_11 = (usuario1, usuario11)
+relacion1_12 = (usuario1, usuario12)
+
+
+publicacion1_1 = (usuario1, "Este es mi primer post", [usuario2, usuario4])
+publicacion1_2 = (usuario1, "Este es mi segundo post", [usuario4])
+publicacion1_3 = (usuario1, "Este es mi tercer post", [usuario2, usuario5])
+publicacion1_4 = (usuario1, "Este es mi cuarto post", [])
+publicacion1_5 = (usuario1, "Este es como mi quinto post", [usuario5])
+
+publicacion2_1 = (usuario2, "Hello World", [usuario4])
+publicacion2_2 = (usuario2, "Good Bye World", [usuario1, usuario4])
+
+publicacion3_1 = (usuario3, "Lorem Ipsum", [])
+publicacion3_2 = (usuario3, "dolor sit amet", [usuario2])
+publicacion3_3 = (usuario3, "consectetur adipiscing elit", [usuario2, usuario5])
+
+publicacion4_1 = (usuario4, "I am Alice. Not", [usuario1, usuario2])
+publicacion4_2 = (usuario4, "I am Bob", [])
+publicacion4_3 = (usuario4, "Just kidding, i am Mariela", [usuario1, usuario3])
+
+
+usuariosA = [usuario1, usuario2, usuario3, usuario4]
+relacionesA = [relacion1_2, relacion1_4, relacion2_3, relacion2_4, relacion3_4]
+publicacionesA = [publicacion1_1, publicacion1_2, publicacion2_1, publicacion2_2, publicacion3_1, publicacion3_2, publicacion4_1, publicacion4_2]
+redA = (usuariosA, relacionesA, publicacionesA)
+
+usuariosB = [usuario1, usuario2, usuario3, usuario5]
+relacionesB = [relacion1_2, relacion2_3]
+publicacionesB = [publicacion1_3, publicacion1_4, publicacion1_5, publicacion3_1, publicacion3_2, publicacion3_3]
+redB = (usuariosB, relacionesB, publicacionesB)
+
+usuariosC = [usuario1, usuario2]
+redC = (usuariosC, [], [])
+
+usuariosD = [usuario1, usuario2, usuario3, usuario4, usuario5, usuario6, usuario7, usuario8, usuario9, usuario10, usuario11, usuario12]
+relacionesD = [relacion1_2, relacion1_3, relacion1_4, relacion1_5, relacion1_6, relacion1_7, relacion1_8, relacion1_9, relacion1_10, relacion1_11, relacion1_12]
+publicacionesD = [publicacion1_3, publicacion1_4]
+redD = (usuariosD, relacionesD, publicacionesD)
+
+usuariosE = [usuario1, usuario3]
+relacionesE = [relacion1_3]
+publicacionesE = [publicacion1_4, publicacion3_1]
+redE = (usuariosE, relacionesE, publicacionesE)
+
+redV = ([],[],[])
 
 -----------------
 -- Ejercicio 1 --

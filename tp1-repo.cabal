@@ -31,16 +31,19 @@ executable tp1-repo
 
     -- LANGUAGE extensions used by modules in this package.
     -- other-extensions:
-    build-depends:    base ^>=4.17.0.0, HUnit ==1.6.2.0
+    build-depends:    base ^>=4.17.0.0,
+                      HUnit ==1.6.2.0
     hs-source-dirs:   app
     default-language: Haskell2010
 
 Test-Suite test
     type:               exitcode-stdio-1.0
     main-is:            Main.hs
-    hs-source-dirs:     test app
+    hs-source-dirs:     test
+                        app
     other-modules:      AuxiliaresCatedra,
                         Solucion,
                         TestCatedra,
                         TestEquipo
-    build-depends:      base, HUnit
+    build-depends:      base,
+                        HUnit
