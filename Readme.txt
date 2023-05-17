@@ -1,18 +1,9 @@
 *********************************************
-Contenido entregado por la cátedra para el TP
+PARA EJECUCION DEL PROYECTO
 *********************************************
 
-- correr cabal build para construir proyecto + dependencias
-
-- correr cabal run para correr proyecto en Main.hs
-
-- pruebas unitarias en test
-
-- solucion en app
-
-- para correr solucion: cabal run tp1-repo
-
-- para correr pruebas: cabal run test
-
-- TODO: revisar casos de prueba,
+* correr cabal build para construir proyecto + dependencias
+* solucion en app. para correr: cabal run tp1
+* pruebas unitarias en test. para correr: cabal run test
+* TODO: revisar casos de prueba
 
